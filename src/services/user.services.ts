@@ -6,6 +6,7 @@ import { User } from "../models/user.model";
 import { comparePassword, makeHashPassword } from "../utils/password";
 import jwt from "jsonwebtoken";
 import { sendEmail } from "../utils/sendEmail";
+
 type TLoginRequest = {
 	email: string;
 	password: string;

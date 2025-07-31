@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.envConfig = void 0;
 const path_1 = __importDefault(require("path"));
 const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config({ path: path_1.default.join(process.cwd(), ".env") });
+dotenv_1.default.config({ path: path_1.default.join(process.cwd(), ".env.local") });
 exports.envConfig = {
     port: 5000,
     salt_round: 10,
