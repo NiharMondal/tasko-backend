@@ -11,7 +11,10 @@ app.use(express.json());
 
 app.use(
 	cors({
-		origin: ["http://localhost:3000"],
+		origin: [
+			"https://tasko-frontend-seven.vercel.app",
+			"http://localhost:3000",
+		],
 		credentials: true,
 	})
 );
