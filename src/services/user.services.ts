@@ -6,7 +6,11 @@ import { User } from "../models/user.model";
 import { comparePassword, makeHashPassword } from "../utils/password";
 import jwt from "jsonwebtoken";
 import { sendEmail } from "../utils/sendEmail";
-
+type TLoginRequest = {
+	email: string;
+	password: string;
+	rememberMe: boolean;
+};
 type TChangePassword = {
 	oldPassword: string;
 	newPassword: string;
@@ -31,7 +35,7 @@ const registerUser = async (payload: IUser) => {
 	};
 };
 
-const loginUser = async (payload: Pick<IUser, "email" | "password">) => {
+const loginUser = async (payload: TLoginRequest) => {
 	const user = await User.findOne({ email: payload.email });
 
 	if (!user) {
