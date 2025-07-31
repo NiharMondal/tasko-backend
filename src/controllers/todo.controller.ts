@@ -37,5 +37,43 @@ const getMyTodos = asyncHandler(async (req: Request, res: Response) => {
 		result: data.todos,
 	});
 });
+const getSingeDoc = asyncHandler(async (req: Request, res: Response) => {
+	const { id } = req.params;
+	const data = await todoServices.getSingeDoc(id);
 
-export const todoController = { insertIntoDB, getAllFromDB, getMyTodos };
+	sendResponse(res, {
+		message: "Todo fetched successfully",
+		statusCode: 200,
+
+		result: data,
+	});
+});
+const updateDoc = asyncHandler(async (req: Request, res: Response) => {
+	const { id } = req.params;
+	const data = await todoServices.updateDoc(id, req.body);
+
+	sendResponse(res, {
+		message: "Todo updated successfully",
+		statusCode: 200,
+		result: data,
+	});
+});
+const deleteDoc = asyncHandler(async (req: Request, res: Response) => {
+	const { id } = req.params;
+	const data = await todoServices.deleteDoc(id);
+
+	sendResponse(res, {
+		message: "Todo deleted successfully",
+		statusCode: 200,
+		result: data,
+	});
+});
+
+export const todoController = {
+	insertIntoDB,
+	getAllFromDB,
+	getMyTodos,
+	getSingeDoc,
+	updateDoc,
+	deleteDoc,
+};

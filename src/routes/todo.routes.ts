@@ -12,7 +12,11 @@ router.get(
 	authGuard(UserRole.ADMIN, UserRole.USER),
 	todoController.getMyTodos
 );
-
+router
+	.route("/:id")
+	.get(todoController.getSingeDoc)
+	.patch(authGuard(UserRole.ADMIN, UserRole.USER), todoController.updateDoc)
+	.delete(authGuard(UserRole.ADMIN, UserRole.USER), todoController.deleteDoc);
 router
 	.route("/")
 	.post(

@@ -46,6 +46,7 @@ const loginUser = async (payload: Pick<IUser, "email" | "password">) => {
 
 	const tokenPayload = {
 		id: user._id,
+		name: user.fullName,
 		email: user.email,
 		role: user.role,
 	};

@@ -8,9 +8,16 @@ const register = z.object({
 		.trim(),
 	email: z.string("Email is required").trim(),
 	password: z
-		.string("Password is required")
+		.string()
+		.nonempty("Password can not be empty")
 		.min(6, "Min length is 6")
 		.max(30, "Max length is 30")
+		.regex(/[a-zA-Z]/, "Password must contain at least one letter")
+		.regex(/\d/, "Password must contain at least one number")
+		.regex(
+			/[!@#$%^&*(),.?":{}|<>]/,
+			"Password must contain at least one special character"
+		)
 		.trim(),
 });
 
@@ -21,6 +28,8 @@ const login = z.object({
 		.min(6, "Min length is 6")
 		.max(30, "Max length is 30")
 		.trim(),
+
+	rememberMe: z.boolean().optional(),
 });
 const forgotPassword = z.object({
 	email: z.string({ error: "Email is required" }).trim(),

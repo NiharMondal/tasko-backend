@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.todoServices = void 0;
+const CustomError_1 = __importDefault(require("../lib/CustomError"));
 const QueryBuilder_1 = __importDefault(require("../lib/QueryBuilder"));
 const todo_model_1 = require("../models/todo.model");
 const insertIntoDB = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
@@ -39,4 +40,34 @@ const getMyTodos = (userId, query) => __awaiter(void 0, void 0, void 0, function
     const meta = yield qb.countTotal();
     return { todos, meta };
 });
-exports.todoServices = { insertIntoDB, getAllFromDB, getMyTodos };
+const getSingeDoc = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const todo = yield todo_model_1.Todo.findById(id);
+    if (!todo) {
+        throw new CustomError_1.default(404, "Todo is not found");
+    }
+    return todo;
+});
+const updateDoc = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const todo = yield todo_model_1.Todo.findById(id);
+    if (!todo) {
+        throw new CustomError_1.default(404, "Todo is not found");
+    }
+    const response = yield todo_model_1.Todo.findByIdAndUpdate(id, Object.assign({}, payload), { new: true });
+    return response;
+});
+const deleteDoc = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const todo = yield todo_model_1.Todo.findById(id);
+    if (!todo) {
+        throw new CustomError_1.default(404, "Todo is not found");
+    }
+    const response = yield todo_model_1.Todo.findByIdAndDelete(id);
+    return response;
+});
+exports.todoServices = {
+    insertIntoDB,
+    getAllFromDB,
+    getMyTodos,
+    getSingeDoc,
+    updateDoc,
+    deleteDoc,
+};

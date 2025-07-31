@@ -44,6 +44,7 @@ const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     }
     const tokenPayload = {
         id: user._id,
+        name: user.fullName,
         email: user.email,
         role: user.role,
     };
